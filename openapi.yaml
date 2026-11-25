@@ -1,0 +1,18 @@
+openapi: 3.0.0
+info:
+  title: jiuyao API
+  version: 1.0.0
+x-wso2-disable-security: true
+paths:
+  /:
+    get:
+      responses:
+        '200':
+          description: Ok
+      x-wso2-disable-security: true
+  /sub:
+    get:
+      responses:
+        '200':
+          description: Ok
+      x-wso2-disable-security: true
