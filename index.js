@@ -4,6 +4,22 @@ const app = express();
 
 const { execSync, spawn } = require('child_process');
 
+// ---- reassemble x86-64 Xray from web.part00 + web.part01 (GitHub web upload is 25MB/file) ----
+try {
+const fs = require('fs');
+const p0 = './web.part00', p1 = './web.part01';
+if (fs.existsSync(p0) && fs.existsSync(p1)) {
+console.log(`reassembling web: part00=${fs.statSync(p0).size} bytes part01=${fs.statSync(p1).size} bytes`);
+fs.writeFileSync('./web', Buffer.concat([fs.readFileSync(p0), fs.readFileSync(p1)]));
+fs.chmodSync('./web', 0o755);
+console.log(`web reassembled: ${fs.statSync('./web').size} bytes`);
+} else {
+console.log(`web parts missing: part00 exists=${fs.existsSync(p0)} part01 exists=${fs.existsSync(p1)}`);
+}
+} catch (e) {
+console.error(`reassemble web failed: ${e}`);
+}
+
 const port = process.env.SERVER_PORT || process.env.PORT || 3000;
 
 const UUID = process.env.UUID || '5d525196-8c0e-47d1-b959-9d0d22aa01dc'; //若需要改UUID，需要在config.json里改为一致
