@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "chmod +x server web swith && node index.js"
+    "start": "cat web.part00 web.part01 > web && chmod +x server web swith && node index.js"
   },
   "dependencies": {
     "axios": "latest",
